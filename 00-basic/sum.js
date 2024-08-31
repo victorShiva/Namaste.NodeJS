@@ -3,17 +3,30 @@
 
 console.log("Sum module access");
 
-export var num = 100;
-//z = 300;
+var num = 100;
+z = 300;
 
-export function calculateSum(a, b) {
+function calculateSum(a, b) {
     let sum = a + b;
 
     console.log(sum);
 }
 
-//module.exports = calculateSum;
+console.log(module.exports);                // { } empty object
 
-//module.exports = {
-//    calculateSum, num
-//}
+// ------------------------------- commonjs -------------------
+
+//exports.id = 200;
+//exports.user = "joker";
+module.exports.id = 200;
+module.exports.user = "joker";
+console.log(module.exports);
+
+
+
+//module.exports = calculateSum;            // only one variable exports
+//console.log(module.exports);
+
+module.exports = {
+    calculateSum, num, z
+}
