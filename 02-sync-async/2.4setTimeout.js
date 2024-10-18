@@ -15,7 +15,7 @@ console.log("FirstKey is generated!");
 // This callback will only be pushed to call stack in v8 once the call stack is empty.
 setTimeout(() => {
     console.log("call me right now!");
-}, 5000);   // It will only be called once call stack of main thread is empty.
+}, 0);   // It will only be called once call stack of main thread is empty.
 
 setTimeout(() => {
     console.log("call me after 3 second");

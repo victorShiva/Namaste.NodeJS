@@ -3,7 +3,7 @@
 
 //(function (module, require) {               //parameter are given by node
 
-//    //require('.//path')
+//    require('./path')
 //    // All code of the module run inside here
 //    function calculateMultiply(a, b) {
 //        let result = a * b;
