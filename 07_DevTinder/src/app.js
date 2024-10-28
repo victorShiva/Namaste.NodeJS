@@ -2,19 +2,20 @@ const express = require('express');
 
 const app = express();
 
-app.use("/", (req, res) => {
-    res.send('Hello from the dashboard!')
+app.get("/user", (req, res) => {
+    res.send({ firstName: "Raghava", age: 23 });
+})
+app.post("/user", (req, res) => {
+    res.send("Create User Successfully!");
+})
+app.patch("/user", (req, res) => {
+    res.send("Update User successfully!");
+})
+app.delete("/user", (req, res) => {
+    res.send("Delete User successfully!");
 })
 
-app.use("/hello", (req, res) => {
-    res.send('Hello Hello Hello fom Hello!')
-})
 
-app.use("/test", (req, res) => {
-    res.send('Hello from the server!')
-})
-
-
-app.listen(3000, () => {
-    console.log("server is successfully listening on port 3000......");
+app.listen(4000, () => {
+    console.log("server is successfully listening on port 4000......");
 });
