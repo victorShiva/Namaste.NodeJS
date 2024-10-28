@@ -2,17 +2,30 @@ const express = require('express');
 
 const app = express();
 
-app.get("/user", (req, res) => {
-    res.send({ firstName: "Raghava", age: 23 });
-})
-app.post("/user", (req, res) => {
-    res.send("Create User Successfully!");
-})
-app.patch("/user", (req, res) => {
-    res.send("Update User successfully!");
-})
-app.delete("/user", (req, res) => {
-    res.send("Delete User successfully!");
+//app.get("/user", (req, res) => {
+//    res.send({ firstName: "Raghava", age: 23 });
+//})
+//app.post("/user", (req, res) => {
+//    res.send("Create User Successfully!");
+//})
+//app.patch("/user", (req, res) => {
+//    res.send("Update User successfully!");
+//})
+//app.delete("/user", (req, res) => {
+//    res.send("Delete User successfully!");
+//})
+
+
+//app.get("/ab?c", (req, res) => {                    // b is optional
+//    res.send("Something is Find for you!");
+//})
+
+//app.get("/ab+c", (req, res) => {                    // multiple b is insert routes 
+//    res.send("Something is Find for you!");
+//})
+
+app.get("/ab*c", (req, res) => {                    // after b multiple charater write inside routes is optional
+    res.send("Something is Find for you! multiple char");
 })
 
 

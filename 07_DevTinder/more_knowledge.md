@@ -5,3 +5,7 @@
 - Play with routes and route extension ex. /hello , / , /hello/2 , /test.
 - Order of routes matter a lot.
 - write logic to handle GET , POST , DELETE , PATCH API calls and test them on postman.
+- explore difference kinds of routing and ? , + , () , \* in the routes .
+- USe of regex in routes /a/ , /.\*fly$/ .
+- Reading the query , params in the routes
+- Reading the Dynamic routes.
