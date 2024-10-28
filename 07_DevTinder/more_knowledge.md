@@ -1,0 +1,4 @@
+- what is node_modules , package.json , package-lock.json?
+- what is dependencies?
+- what is the use of "-g" .
+- difference between caret and tilde (^ vs ~);
