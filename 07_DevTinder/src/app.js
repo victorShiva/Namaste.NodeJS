@@ -16,6 +16,11 @@ const app = express();
 //})
 
 
+
+// +++++++++++++++++++++++ Dynamic router explore ------------------------------
+
+
+
 //app.get("/ab?c", (req, res) => {                    // b is optional
 //    res.send("Something is Find for you!");
 //})
@@ -70,26 +75,60 @@ const app = express();
 //    res.send(`Hello Mr / Miss ${req.query.firstName}`);
 //})
 
-app.get('/user/:id', (req, res) => {                            // /user/775
-    console.log(req.params);
-    res.send(`This Post id is no : ${req.params.id}`);
-})
-app.get('/user/:userName/:userId/:UserPass', (req, res) => {                            // /user/775
-    console.log(req.params);
-    res.send(`This Post id is no : ${req.params.userId}\n User Name is : ${req.params.userName} \n User's Password is : ${req.params.UserPass}`);
-})
+//app.get('/user/:id', (req, res) => {                            // /user/775
+//    console.log(req.params);
+//    res.send(`This Post id is no : ${req.params.id}`);
+//})
 
-app.get(/^\/(about|contact)$/, (req, res) => {                  // /about or /contact     -> strict mode 
-    res.send({ username: "Raghava", password: "12345" });
-})
+//app.get('/user/:userName/:userId/:UserPass', (req, res) => {                            // /user/775
+//    console.log(req.params);
+//    res.send(`This Post id is no : ${req.params.userId}\n User Name is : ${req.params.userName} \n User's Password is : ${req.params.UserPass}`);
+//})
+
+//app.get(/^\/(about|contact)$/, (req, res) => {                  // /about or /contact     -> strict mode 
+//    res.send({ username: "Raghava", password: "12345" });
+//})
 
 //app.get(/^\/home$/, (req, res) => {                               // only for /home 
 //    res.send({ username: "Manish", password: "modan123" });
 //})
 
-app.get(/^\/home$/i, (req, res) => {                               // only for /home  , /Home , /hoME
-    res.send({ username: "Manish", password: "modan123" });
-})
+//app.get(/^\/home$/i, (req, res) => {                               // only for /home  , /Home , /hoME
+//    res.send({ username: "Manish", password: "modan123" });
+//})
+
+
+// // ++++++++++++++++++++++++++++++++++ multiple response+++++++++++++++
+
+app.use('/user',
+    (req, res, next) => {
+        console.log("Handling the routes user!");
+        next();
+        //res.send("Response !!");
+    },
+    (req, res, next) => {
+        console.log("Handling the routes user2!");
+        //res.send("2nd Response!!");
+        next()
+    }, [
+    (req, res, next) => {
+        console.log("Handling the routes user3!");
+        next()
+        //res.send({ response: "3nd Response!!" })
+    },
+    (req, res, next) => {
+        console.log("Handling the routes user4!");
+        res.send("4nd Response!!");
+        next()
+    }]
+);
+
+/*        ---    Explore router's callback    -----
+    app.use('/router',cb1,cb2,cb3,cb4,cb5,cb6);
+    app.use('/router',[cb1,cb2,cb3,cb4,cb5,cb6]);
+    app.use('/router',cb1,cb2,[cb3,cb4,cb5],cb6);
+    app.use('/router',[cb1,cb2,cb3],cb4,cb5,cb6);
+*/
 
 
 
