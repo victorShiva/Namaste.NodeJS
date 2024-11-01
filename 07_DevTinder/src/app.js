@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-
+const { adminAuth, userAuth } = require('./middlewares/auth')
 //app.get("/user", (req, res) => {
 //    res.send({ firstName: "Raghava", age: 23 });
 //})
@@ -100,6 +100,7 @@ const app = express();
 
 // // ++++++++++++++++++++++++++++++++++ multiple response+++++++++++++++
 
+/*
 app.use('/user',
     (req, res, next) => {
         console.log("Handling the routes user!");
@@ -108,20 +109,21 @@ app.use('/user',
     },
     (req, res, next) => {
         console.log("Handling the routes user2!");
-        //res.send("2nd Response!!");
         next()
+        res.send("2nd Response!!");
     }, [
     (req, res, next) => {
         console.log("Handling the routes user3!");
         next()
-        //res.send({ response: "3nd Response!!" })
+        res.send({ response: "3nd Response!!" })
     },
     (req, res, next) => {
         console.log("Handling the routes user4!");
-        res.send("4nd Response!!");
+        //res.send("4nd Response!!");
         next()
     }]
 );
+*/
 
 /*        ---    Explore router's callback    -----
     app.use('/router',cb1,cb2,cb3,cb4,cb5,cb6);
@@ -131,6 +133,132 @@ app.use('/user',
 */
 
 
+// // ++++++++++++++++++++++++ next() other ways ++++++++++++++++++++++++
+
+//app.get('/user', (req, res, next) => {
+//    console.log("Handling User1 !");
+//    next();
+//    res.send("1st Response!! ");
+//})
+
+//app.get('/user', (req, res, next) => {
+//    console.log("Handling User2 !");
+//    //res.send("2st Response!! ");
+//    next();
+//})
+
+
+// ++++++++++++++++++++++++ middleware ++++++++++++++++++++++++
+
+// GET /user ==> It checks all the app.xxx("matching route") function
+// GET /user ==> middleware check ==> request handler(route handler).  
+
+//app.use('/', (req, res, next) => {
+//    console.log("Handling / route");
+//    //res.send("Handle all routes starting with / ");
+//    next();
+//})
+
+//app.get('/user', (req, res, next) => {
+//    console.log("1st handling /user");
+//    next();
+//}, (req, res, next) => {
+//    next();
+//}, (req, res, next) => {
+//    res.send({ firstName: "Raghava", pass: "1234@qwsd" })
+//})
+
+
+
+// ++++++++++++++++++++++++++ 
+
+//app.get('/admin/getAllData', (req, res) => {
+//    //logic of checking if the request is authorized
+//    const token = "xyzasd";
+//    const isAdminAuthorized = token === "xyz";
+//    if (isAdminAuthorized) {
+//        res.send("All Data send!!");
+//    } else {
+//        res.status(401).send("Unauthorized Request!");
+//    }
+//})
+
+//app.get('/admin/deleteUser', (req, res) => {
+//    //logic of checking if the request is authorized
+//    const token = "xyz";
+//    const isAdminAuthorized = token === "xyz";
+//    if (isAdminAuthorized) {
+//        res.send("Delete a User!");
+//    } else {
+//        res.status(401).send("Unauthorized Request!");
+//    }
+
+//})
+
+
+//+++++++++++++++++++++++ app.use() & app.all() +++++++++++++++++
+
+//app.use('/admin', (req, res) => {
+//    res.send({ firstName: "Raghava", pass: "1234@qwsd" });
+//});
+
+//app.all('/admin', (req, res) => {
+//    res.send({ firstName: "Narayana", pass: "nryn@8765" });
+//});
+
+
+// +++++++++++++++++++++ 
+
+///-----------------------------/Handle Autho Middleware for All GET,POSt,PUT,...request.
+//app.use('/admin', adminAuth);
+////app.use('/user', userAuth);
+
+//app.get('/user', userAuth, (req, res) => {
+//    res.send("User Info send!!");
+//})
+
+//app.post('/user/login', (req, res) => {
+//    res.send("User Logged In Successfully!!!");
+//})
+
+//app.get("/user/data", userAuth, (req, res) => {
+//    res.send("Getting the user data profile!!");
+//})
+
+//app.get("/admin/getAllData", (req, res) => {
+//    res.send("All Data Sent1")
+//})
+//app.get("/admin/deleteUser", (req, res) => {
+//    res.send("All Data is celebrate2")
+//})
+
+
+// ++++++++++++++++++++++++  Error Handling ------------------
+
+app.use('/', (err, req, res, next) => {
+    if (err) {
+        res.status(500).send("Something went wrong-1");
+    }
+    console.log("/ route-1");
+});
+
+app.get('/getUserData', (req, res) => {
+    //try {
+    // Logic of Db to call the user data
+
+    throw new Error("qwerthgfds");
+    res.send("User data send!!");
+    //} catch (err) {
+    //    res.status(500).send("Some Error Please Contact help support team!");
+    //}
+})
+
+app.use('/', (err, req, res, next) => {
+    if (err) {
+        res.status(500).send("Something went wrong-2");
+    }
+    console.log("/ route-2");
+});
 
 app.listen(4000, () => {
     console.log("server is successfully listening on port 4000......");
